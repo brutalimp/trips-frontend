@@ -1,19 +1,16 @@
-import { ASK_FOR_LOCATION, ASK_FOR_LOCATION_SUCCEED, ASK_FOR_LOCATION_FAILED, SET_FORMATTED_ADDRESS } from '../reducers/selflocation';
+import { ASK_FOR_LOCATION, ASK_FOR_LOCATION_SUCCEED, ASK_FOR_LOCATION_FAILED } from '../reducers/selflocation';
 
 export const askForLocation = () => ({
     type: ASK_FOR_LOCATION,
 })
 
-export const askForLocationSucceed = (position) => ({
+export const askForLocationSucceed = (location) => ({
     type: ASK_FOR_LOCATION_SUCCEED,
-    position
+    position: location.position,
+    formattedAddress: location.formattedAddress
 })
 
 export const askForLocationFailed = () => ({
     type: ASK_FOR_LOCATION_FAILED
 })
 
-export const setFormattedAddress =(address) => ({
-    type: SET_FORMATTED_ADDRESS,
-    address
-})

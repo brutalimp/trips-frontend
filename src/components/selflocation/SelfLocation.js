@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import { Map, Marker } from 'react-amap';
-import { askForLocation, askForLocationSucceed, askForLocationFailed, setFormattedAddress } from '../../redux/actions/selflocation';
+import { askForLocation, askForLocationSucceed, askForLocationFailed } from '../../redux/actions/selflocation';
 import './selflocation.css';
 
 class SelfLocaton extends React.Component {
@@ -40,21 +40,23 @@ class SelfLocaton extends React.Component {
             longitude: position.coords.longitude,
             latitude: position.coords.latitude
         }
-        this.props.askForLocationSucceed(pos);
         this.getFormattedAddress(pos);
 
     }
 
-    getFormattedAddress(pos) {
+    getFormattedAddress(position) {
         if (this.geocoder) {
-            this.geocoder.getAddress([pos.longitude, pos.latitude], (status, result) => {
-                console.log('address:', result, status);
+            this.geocoder.getAddress([position.longitude, position.latitude], (status, result) => {
+                let formattedAddress;
                 if (status == 'complete') {
                     if (result.regeocode) {
-                        this.props.setFormattedAddress(result.regeocode.formattedAddress);
+                        formattedAddress = result.regeocode.formattedAddress;
                     }
                 }
+                this.props.askForLocationSucceed({ position, formattedAddress});
             })
+        } else {
+            this.props.askForLocationSucceed({ position });
         }
     }
 
@@ -94,7 +96,6 @@ export default connect(state => (
     }), dispatch => ({
         askForLocation: () => dispatch(askForLocation()),
         askForLocationSucceed: (position) => dispatch(askForLocationSucceed(position)),
-        askForLocationFailed: () => dispatch(askForLocationFailed()),
-        setFormattedAddress: (address) => dispatch(setFormattedAddress(address))
+        askForLocationFailed: () => dispatch(askForLocationFailed())
     })
 )(SelfLocaton)
