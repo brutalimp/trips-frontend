@@ -1,0 +1,17 @@
+.figure {
+    top: 50%;
+    transform: translateY(-50%);
+    float: right;
+}
+
+.name {
+    margin-right: 24px;
+    color: white;
+    display: inline-block;
+    line-height: 42px;
+    padding-left: 10px;
+}
+
+.name:hover {
+    color: #1890ff
+}

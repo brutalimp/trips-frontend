@@ -1,0 +1,18 @@
+
+
+@media screen and (min-width: 599px) {
+    .App-content {
+        margin: 20px 5% 20px 5%;
+        background-color: white;
+        padding: 20px 20px;
+        min-height: 80vh;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .App-content {
+        background-color: white;
+        padding: 10px 10px;
+        min-height: 80vh;
+    }
+}
