@@ -1,5 +1,7 @@
 import React from 'react';
 import { Upload, Icon, message, Modal } from 'antd';
+import { connect } from 'react-redux';
+import { openImagePreview, closeImagePreview, changeFileList, imageLoadStart, imageLoadEnd } from '../../redux/actions/addTrip';
 import './imagelist.css'
 
 function getBase64(img, callback) {
@@ -9,10 +11,11 @@ function getBase64(img, callback) {
 }
 
 
-function beforeUpload(file) {
+function checkImage(file) {
     const isJPG = file.type === 'image/jpeg';
     if (!isJPG) {
         message.error('You can only upload JPG file!');
+        return;
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
@@ -21,83 +24,65 @@ function beforeUpload(file) {
     return isJPG && isLt2M;
 }
 
-export class ImageList extends React.Component {
+class ImageList extends React.Component {
 
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handlePreview = this.handlePreview.bind(this);
-        this.handleUpload = this.handleUpload.bind(this);
-        this.state = {
-            previewVisible: false,
-            previewImage: '',
-            fileList: [{
-                uid: -1,
-                name: 'xxx.png',
-                status: 'done',
-                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            }],
-        }
+        // this.customRequest = this.customRequest.bind(this);
     }
 
     handleCancel() {
-        this.setState({ previewVisible: false })
+        this.props.closeImagePreview();
     }
 
     handlePreview(file) {
-        this.setState({
-            previewImage: file.url || file.thumbUrl,
-            previewVisible: true,
-        });
+        this.props.openImagePreview(file.url || file.thumbUrl);
     }
 
     handleChange(info) {
-        console.log(info);
-        const fileList = info.fileList;
-        this.setState({ fileList })
+        const file = info.file;
+        if (checkImage(file)) {
+            const fileList = info.fileList;
+            this.props.changeFileList(fileList);
+        }
     }
 
-    handleUpload(res) {
-        return true;
+    beforeUpload = () => {
+        return false;
     }
-
-    // handleChange = (info) => {
-    //     if (info.file.status === 'uploading') {
-    //         this.setState({ loading: true });
-    //         return;
-    //     }
-    //     if (info.file.status === 'done') {
-    //         // Get this url from response in real world.
-    //         getBase64(info.file.originFileObj, imageUrl => this.setState({
-    //             imageUrl,
-    //             loading: false,
-    //         }));
-    //     }
-    // }
 
     render() {
-        const { previewVisible, previewImage, fileList } = this.state;
-        const uploadButton = (
-            <div>
-                <Icon type={this.state.loading ? 'loading' : 'plus'} />
-            </div>
-        );
         return <div className='imageList' >
             <Upload
-                name="avatar"
-                className="avatar-uploader"
-                action="//jsonplaceholder.typicode.com/posts/"
+                name="image"
                 listType="picture-card"
-                fileList={fileList}
+                fileList={this.props.fileList}
                 onPreview={this.handlePreview}
+                beforeUpload={this.beforeUpload}
                 onChange={this.handleChange}>
-                {fileList.length >= 9 ? null : uploadButton}
+                {this.props.fileList.length >= 9 ? null : <div><Icon type='plus' />
+                </div>}
             </Upload>
-            <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-                <img alt="example" style={{ width: '100%' }} src={previewImage} />
+            <Modal visible={this.props.previewVisible} footer={null} onCancel={this.handleCancel}>
+                <img alt="example" style={{ width: '100%' }} src={this.props.previewImage} />
             </Modal>
         </div>
     }
 
 }
+
+export default connect(state => ({
+    previewImage: state.addTrip.previewImage,
+    previewVisible: state.addTrip.previewVisible,
+    fileList: state.addTrip.fileList,
+    loading: state.addTrip.loading
+}), dispatch => ({
+    openImagePreview: previewImage => dispatch(openImagePreview(previewImage)),
+    closeImagePreview: () => dispatch(closeImagePreview()),
+    changeFileList: fileList => dispatch(changeFileList(fileList)),
+    imageLoadStart: () => dispatch(imageLoadStart()),
+    imageLoadEnd: () => dispatch(imageLoadEnd())
+}))(ImageList)

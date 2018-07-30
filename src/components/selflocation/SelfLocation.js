@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import { Map, Marker } from 'react-amap';
-import { askForLocation, askForLocationSucceed, askForLocationFailed } from '../../redux/actions/selflocation';
+import { askForLocation, askForLocationSucceed, askForLocationFailed } from '../../redux/actions/addTrip';
 import './selflocation.css';
 
 class SelfLocaton extends React.Component {
@@ -31,7 +31,7 @@ class SelfLocaton extends React.Component {
             this.props.askForLocation();
             navigator.geolocation.getCurrentPosition(positon => this.setPosition(positon), this.positionError);
         } else {
-            this.prop.askForLocationFailed();
+            this.props.askForLocationFailed();
         }
     }
 
@@ -61,7 +61,7 @@ class SelfLocaton extends React.Component {
     }
 
     positionError(err) {
-        this.prop.askForLocationFailed();
+        this.props.askForLocationFailed();
     }
 
     render() {
@@ -89,10 +89,10 @@ class SelfLocaton extends React.Component {
 
 export default connect(state => (
     {
-        position: state.selfLocation.position,
-        askingForLocation: state.selfLocation.askingForLocation,
-        locationAvailable: state.selfLocation.locationAvailable,
-        formattedAddress: state.selfLocation.formattedAddress
+        position: state.addTrip.position,
+        askingForLocation: state.addTrip.askingForLocation,
+        locationAvailable: state.addTrip.locationAvailable,
+        formattedAddress: state.addTrip.formattedAddress
     }), dispatch => ({
         askForLocation: () => dispatch(askForLocation()),
         askForLocationSucceed: (position) => dispatch(askForLocationSucceed(position)),

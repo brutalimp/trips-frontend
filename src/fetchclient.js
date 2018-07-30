@@ -14,7 +14,7 @@ const fetchClient = () => {
     instance.interceptors.request.use(config => {
         config.baseURL = 'http://localhost:8091';
         const token = localStorage.getItem('token');
-        config.headers.Authorization = token ? `bearer ${token}` : '';
+        config.headers.Authorization = token ? `Bearer ${token}` : '';
         return config;
     });
 

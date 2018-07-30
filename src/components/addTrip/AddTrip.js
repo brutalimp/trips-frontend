@@ -1,7 +1,8 @@
 import React from 'react';
 import SelfLocaton from '../selflocation/SelfLocation';
-import { Description } from '../description/Description';
-import { ImageList } from '../imagelist/ImageList';
+import Description from '../description/Description';
+import ImageList from '../imagelist/ImageList';
+import PublishButton from '../publishbutton/PublishButton';
 import './addtrip.css';
 
 export class AddTrip extends React.Component {
@@ -14,6 +15,7 @@ export class AddTrip extends React.Component {
             <SelfLocaton />
             <Description />
             <ImageList />
+            <PublishButton />
         </div>
     }
 }

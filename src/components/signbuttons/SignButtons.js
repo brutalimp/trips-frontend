@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd'
 import { history } from '../../history';
+import './signbutton.css';
 
 export class SignButtons extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export class SignButtons extends Component {
 
     render() {
         return <div className='figure'>
-            <Button  className='name' onClick={() => { this.handleClick() }}>Sign in</Button>
+            <Button  className='sign-in' onClick={() => { this.handleClick() }}>Sign in</Button>
             <Button type="primary" onClick={() => { this.handleRegClick() }}>Sign up</Button>
         </div>
     }

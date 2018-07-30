@@ -1,12 +1,28 @@
-.App-header {
-    padding-left: 5%;
-    padding-right: 5%;
+@media screen and (min-width: 599px) {
+    .App-header {
+      padding-left: 5%;
+      padding-right: 5%;
+      position: relative;
+      border-bottom: 1.2px solid #dcdcdc;
+      background-color: #202329;
+      height: 48px;
+      color: white;
+    }
+ }
+
+@media screen and (max-width: 599px) {
+  .App-header {
+    padding-left: 10px;
+    padding-right: 10px;
     position: relative;
     border-bottom: 1.2px solid #dcdcdc;
     background-color: #202329;
     height: 48px;
     color: white;
   }
+}
+
+
   
   .App-header > div {
     display: inline-block;
