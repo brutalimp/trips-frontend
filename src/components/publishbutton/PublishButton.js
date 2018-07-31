@@ -17,10 +17,14 @@ class PublishButton extends React.Component {
         this.props.trip.fileList.map((item)=> {
             fm.append('files', item.originFileObj);
         })
-        fm.append('longitude', this.props.trip.position.longitude);
-        fm.append('latitude', this.props.trip.position.latitude);
-        fm.append('address', this.props.trip.formattedAddress);
-        fm.append('description', this.props.trip.description);
+        if(this.props.trip.position) {
+            fm.append('longitude', this.props.trip.position.longitude);
+            fm.append('latitude', this.props.trip.position.latitude);
+            fm.append('address', this.props.trip.formattedAddress);
+        }
+        if(this.props.trip.description) {
+            fm.append('description', this.props.trip.description);
+        }
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data',

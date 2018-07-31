@@ -1,0 +1,11 @@
+.server-error {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: cursive;
+    color: #65aaea;
+    font-size: 20px;
+}

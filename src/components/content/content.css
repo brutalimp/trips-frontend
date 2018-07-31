@@ -2,6 +2,7 @@
     .App-content {
         margin: 20px 5% 20px 5%;
         background-color: white;
+        position: relative;
         padding: 20px 20px;
         min-height: 80vh;
     }
@@ -11,6 +12,7 @@
     .App-content {
         background-color: white;
         padding: 10px 10px;
+        position: relative;
         min-height: 80vh;
     }
 }

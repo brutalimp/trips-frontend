@@ -1,0 +1,18 @@
+.description {
+    min-height: 40px;
+}
+
+.images {
+
+}
+
+.images .img {
+    width: 20vw;
+    height: 20vw;
+    display: inline-flex;
+    justify-content: center;
+    border: 1px solid #dad5d5;
+    align-items: center;
+    margin-top: 10px;
+    margin-right: 10px;
+}

@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_SUCCESS, LOGIN_FAIL } from '../reducers/login';
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../reducers/login';
 import { history } from '../../history'
 import fetch from '../../fetchclient';
 
@@ -36,5 +36,5 @@ export const startLogInByAuth = () => {
 }
 
 export const logOut = () => ({
-    type: 'LOGOUT',
+    type: LOGOUT,
 })

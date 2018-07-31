@@ -9,12 +9,7 @@ export const IMAGELOADSTART = 'IMAGELOADSTART';
 export const IMAGELOADEND = 'IMAGELOADEND';
 
 const initialState = {
-    position: {
-        longitude: 100,
-        latitude: 30
-    },
-    formattedAddress: '未知地点',
-
+    formattedAddress: '',
     previewVisible: false,
     previewImage: '',
     fileList: []

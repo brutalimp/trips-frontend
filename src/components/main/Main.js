@@ -5,7 +5,7 @@ import Header from '../../components/header/Header';
 import { Content } from '../content/Content';
 import { Home } from '../home/Home'
 import { Location } from '../location/Location';
-import { Trip } from '../trip/Trip';
+import Trips from '../trips/Trips';
 import { AddTrip } from '../addTrip/AddTrip';
 import { Profile } from '../profile/Profile';
 import { Account } from '../account/Account';
@@ -19,7 +19,7 @@ export class Main extends Component {
                 <Switch>
                     <Route exact path='/' component={Home} />
                     <Route path='/location' component={Location} />
-                    <Route path='/trips' component={Trip} />
+                    <Route path='/trips' component={Trips} />
                     <Route path='/profile' component={Profile} />
                     <Route path='/account' component={Account} />
                     <Route path='/addTrip' component={AddTrip} />

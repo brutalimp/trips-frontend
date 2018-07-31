@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import { Map, Marker } from 'react-amap';
+import { Address } from '../address/Address';
 import { askForLocation, askForLocationSucceed, askForLocationFailed } from '../../redux/actions/addTrip';
 import './selflocation.css';
 
@@ -29,7 +30,7 @@ class SelfLocaton extends React.Component {
     checkLocation() {
         if ("geolocation" in navigator) {
             this.props.askForLocation();
-            navigator.geolocation.getCurrentPosition(positon => this.setPosition(positon), this.positionError);
+            navigator.geolocation.getCurrentPosition(positon => this.setPosition(positon),err=> this.positionError());
         } else {
             this.props.askForLocationFailed();
         }
@@ -76,13 +77,11 @@ class SelfLocaton extends React.Component {
         }
         return <div>
             <div id="container" className='map-container'>
-                <Map amapkey={key} events={this.amapEvents} center={this.props.position} zoom='15'>
-                    <Marker position={this.props.position} />
+                <Map amapkey={key} events={this.amapEvents} center={this.props.position? this.props.position: ''} zoom='15'>
+                     {this.props.position ? <Marker position={this.props.position} />: ''} 
                 </Map>
             </div>
-            <div className='address'>
-                <Icon type="environment-o" /><span>{span}</span>
-            </div>
+            <Address address={span} />
         </div>
     }
 }

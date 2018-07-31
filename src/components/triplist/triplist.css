@@ -1,0 +1,12 @@
+.trip-list {
+    width: 100%;
+    min-height: 100px;
+}
+
+.trip-list div.ant-timeline-item-content{
+    border-top: 1px solid gainsboro;
+}
+
+.trip-list .ant-timeline.ant-timeline-pending .ant-timeline-item-last .ant-timeline-item-tail {
+    border-left: 2px solid #e8e8e8;
+}
