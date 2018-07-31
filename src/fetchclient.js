@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { config as serverConfig } from './config';
 
 const fetchClient = () => {
     const defaultOptions = {
@@ -12,7 +13,10 @@ const fetchClient = () => {
     let instance = axios.create(defaultOptions);
     // Set the AUTH token for any request
     instance.interceptors.request.use(config => {
-        config.baseURL = 'http://localhost:8091';
+        let url = '';
+        serverConfig.https? url +='https://' : url +='http://';
+        url += serverConfig.serverHost + ':' + serverConfig.port;
+        config.baseURL = url;
         const token = localStorage.getItem('token');
         config.headers.Authorization = token ? `Bearer ${token}` : '';
         return config;
