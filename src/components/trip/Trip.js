@@ -24,20 +24,29 @@ class Trip extends React.Component {
     }
 
     handleImgResponse(res) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(new Blob([res.data], {type:'image/jpeg'}));
-        // const url = URL.createObjectURL(res.data);
-        fileReader.onloadend = (ev) => {
-            this.handleReader(ev, res);
-        }
+        // const fileReader = new FileReader();
+        // fileReader.readAsDataURL(new Blob([res.data], {type:'image/jpeg'}));
+        // // const url = URL.createObjectURL(res.data);
+        // fileReader.onloadend = (ev) => {
+        //     this.handleReader(ev, res);
+        // }
+        var responseTextLen = res.data.length;
+        var binary = ''
+        for (var j = 0; j < responseTextLen; j+=1) {
+            binary += String.fromCharCode(res.data.charCodeAt(j) & 0xff)
+        }  
+        let b64Response = btoa(binary);
+        let result = 'data:image/jpeg;base64,' + b64Response;
+        this.handleReader(result, res)
     }
 
-    handleReader(ev, res) {
+    handleReader(result, res) {
         const url = res.config.url.split('/')
         const image = url[url.length - 1];
         // this.imagesStatus[image].loaded = true;
         // this.imagesStatus[image].src = ev.target.result;
-        this.props.loadImageSucceed(this.props.index, image, ev.target.result)
+        
+        this.props.loadImageSucceed(this.props.index, image, result)
     }
 
     handleImgErr(err) {
@@ -46,9 +55,8 @@ class Trip extends React.Component {
 
     render() {
         console.log('trip', this.props.trip);
-        const src = 'http://localhost:8091/image/10698ef6-2170-444b-bbf0-60fde82771f1';
         const listItems = this.props.trip.images.map((image, index) =>
-            this.props.trip.imagesStatus[image].loaded ? <div key={image} className='img'><img key={image} src={this.props.trip.imagesStatus[image].url} /></div> :
+            this.props.trip.imagesStatus[image].loaded ? <div key={image} className='img'><img key={image} src={'http://localhost:8092/image/'+image} /></div> :
                 <div key={image} className='img'> <Icon type="loading" /> </div>
         );
         return <div className='trip' >

@@ -11,7 +11,6 @@ class TripList extends React.Component {
 
     render() {
         const tripList = this.props.tripList;
-        console.log('triplist', tripList);
         const pendingDot = <Icon type="disconnect" />;
         const listItems = tripList.map((trip, index) => {
             const tri = Object.assign({}, trip);

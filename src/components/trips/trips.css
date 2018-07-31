@@ -1,3 +1,7 @@
+.trips {
+    padding: 10px;
+}
+
 .trips > div {
     margin-bottom: 20px;
  }

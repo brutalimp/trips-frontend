@@ -19,8 +19,8 @@ export class SignButtons extends Component {
 
     render() {
         return <div className='figure'>
-            <Button  className='sign-in' onClick={() => { this.handleClick() }}>Sign in</Button>
-            <Button type="primary" onClick={() => { this.handleRegClick() }}>Sign up</Button>
+            <Button  className='sign-in' onClick={() => { this.handleClick() }}>登陆</Button>
+            <Button type="primary" onClick={() => { this.handleRegClick() }}>注册</Button>
         </div>
     }
 }

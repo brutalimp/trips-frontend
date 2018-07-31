@@ -42,18 +42,18 @@ export class HorizontalLoginForm extends Component {
                     validateStatus={userNameError ? 'error' : ''}
                     help={userNameError || ''}>
                     {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'Please input your username!' }],
+                        rules: [{ required: true, message: '请输入用户名!' }],
                     })(
-                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
                     )}
                 </FormItem>
                 <FormItem
                     validateStatus={passwordError ? 'error' : ''}
                     help={passwordError || ''}>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your Password!' }],
+                        rules: [{ required: true, message: '请输入密码!' }],
                     })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
                     )}
                 </FormItem>
                 <FormItem>
@@ -62,10 +62,10 @@ export class HorizontalLoginForm extends Component {
                         htmlType="submit"
                         className="login-form-button"
                         disabled={hasErrors(getFieldsError())}>
-                        Log in
+                        登陆
                     </Button>
-                    Or <Link to='/register'>register now!</Link>
-                </FormItem> 
+                    或者<Link to='/register'>注册!</Link>
+                </FormItem>
             </Form>
         </div>)
     }

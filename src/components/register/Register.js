@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { history } from '../../history';
 import { Form, Input, Button } from 'antd';
 import HomeIcon from '../../components/homeIcon/HomeIcon';
 import fetch from '../../fetchclient';
@@ -17,9 +18,8 @@ class RegistrationForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 fetch.post('Register', values).then((res) => {
-                    console.log(res);
+                    history.push('/login');
                 }, (err) => {
                     console.log(err);
                 })
@@ -71,40 +71,38 @@ class RegistrationForm extends React.Component {
                     <FormItem>
                         {getFieldDecorator('name', {
                             rules: [{
-                                required: true, message: 'The input is not valid E-mail!',
-                            }, {
-                                required: true, message: 'Please input your E-mail!',
+                                required: true, message: '请输入用户名',
                             }],
                         })(
-                            <Input placeholder="User name" />
+                            <Input placeholder="用户名" />
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('password', {
                             rules: [{
-                                required: true, message: 'Please input your password!',
+                                required: true, message: '请输入密码!',
                             }, {
                                 validator: this.validateToNextPassword,
                             }],
                         })(
-                            <Input type="password" placeholder="Password" />
+                            <Input type="password" placeholder="密码" />
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('confirm', {
                             rules: [{
-                                required: true, message: 'Please confirm your password!',
+                                required: true, message: '请确认密码!',
                             }, {
                                 validator: this.compareToFirstPassword,
                             }],
                         })(
-                            <Input type="password" onBlur={this.handleConfirmBlur} placeholder="Confirm password" />
+                            <Input type="password" onBlur={this.handleConfirmBlur} placeholder="确认密码" />
                         )}
                     </FormItem>
 
                     <FormItem>
-                        <Button className='login-form-button' type="primary" htmlType="submit">Register</Button>
-                        Or <Link to='/login'>log in now!</Link>
+                        <Button className='login-form-button' type="primary" htmlType="submit">注册</Button>
+                        或者 <Link to='/login'>登陆!</Link>
                     </FormItem>
                 </Form>
             </div>

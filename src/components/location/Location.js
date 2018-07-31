@@ -18,7 +18,7 @@ export class Location extends Component {
 
     render() {
         const key = '92dd08807095095bf3e11784a5585971';
-        return <div>
+        return <div className='location'>
             <div className='search'>
                 <Search
                     placeholder="input location"

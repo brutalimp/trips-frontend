@@ -15,7 +15,7 @@ const fetchClient = () => {
     instance.interceptors.request.use(config => {
         let url = '';
         serverConfig.https? url +='https://' : url +='http://';
-        url += serverConfig.serverHost + ':' + serverConfig.port;
+        url += serverConfig.serverHost + ':' + serverConfig.port+'/';
         config.baseURL = url;
         const token = localStorage.getItem('token');
         config.headers.Authorization = token ? `Bearer ${token}` : '';

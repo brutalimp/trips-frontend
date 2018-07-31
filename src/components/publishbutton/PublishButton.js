@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'antd';
+import { Button , message } from 'antd';
+import { history } from '../../history';
 import fetch from '../../fetchclient';
 import './publishbutton.css';
 
@@ -32,9 +33,10 @@ class PublishButton extends React.Component {
             }
         }
         fetch.post('trip', fm, config).then((result) => {
-            console.log(result);
+            message.success('发表成功!');
+            history.push('/trips');
         }, err => {
-            console.log(err);
+            message.error('发表失败,请稍后再试!');
         })
     }
 

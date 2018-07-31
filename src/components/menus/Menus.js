@@ -38,14 +38,14 @@ class Menus extends Component {
                 selectedKeys={this.props.selectedKeys}
                 onClick={this.handleClick}
                 mode="horizontal" >
-                <Menu.Item key="location">
-                    <Icon type="environment-o" />Location
+                <Menu.Item key="/location">
+                    <Icon type="environment-o" />位置
                 </Menu.Item>
-                <Menu.Item key="trips">
-                    <Icon type="global" />Trips
+                <Menu.Item key="/trips">
+                    <Icon type="global" />足迹
                 </Menu.Item>
-                <Menu.Item key="addTrip">
-                    <Icon type="plus-circle-o" />Now
+                <Menu.Item key="/addTrip">
+                    <Icon type="plus-circle-o" />现在
                 </Menu.Item>
             </Menu>
         </div>
