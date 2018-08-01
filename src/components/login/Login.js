@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Icon, Input, Button } from 'antd';
 import HomeIcon from '../../components/homeIcon/HomeIcon';
+import { fieldServerError } from '../../utils';
 import './login.css';
 
 const FormItem = Form.Item;
@@ -20,6 +21,10 @@ export class HorizontalLoginForm extends Component {
         this.props.form.validateFields();
     }
 
+    handleRenewForm = () => {
+       this.props.renewFrom();
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -33,11 +38,17 @@ export class HorizontalLoginForm extends Component {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
         // Only show error after a field is touched.
-        const userNameError = isFieldTouched('name') && getFieldError('name');
-        const passwordError = isFieldTouched('password') && getFieldError('password');
+        let userNameError = isFieldTouched('name') && getFieldError('name');
+        if (!userNameError) {
+            userNameError = fieldServerError(this.props.error,30003);
+        }
+        let passwordError = isFieldTouched('password') && getFieldError('password');
+        if (!passwordError) {
+            passwordError = fieldServerError(this.props.error,30004);
+        }
         return (<div className='login_container'>
             <div className='HomeIcon'><HomeIcon /></div>
-            <Form className='form' layout="horizontal" onSubmit={this.handleSubmit}>
+            <Form className='form' layout="horizontal" onSubmit={this.handleSubmit} onChange={this.handleRenewForm}>
                 <FormItem
                     validateStatus={userNameError ? 'error' : ''}
                     help={userNameError || ''}>
@@ -61,7 +72,7 @@ export class HorizontalLoginForm extends Component {
                         type="primary"
                         htmlType="submit"
                         className="login-form-button"
-                        disabled={hasErrors(getFieldsError())}>
+                        disabled={hasErrors(getFieldsError()) || this.props.error}>
                         登陆
                     </Button>
                     或者<Link to='/register'>注册!</Link>
@@ -74,4 +85,3 @@ export class HorizontalLoginForm extends Component {
 }
 
 export const WrappedHorizontalLoginForm = Form.create()(HorizontalLoginForm);
-

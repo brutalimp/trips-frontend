@@ -10,13 +10,13 @@ export class Account extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            selectedKeys: 'avatar'
+            selectedKeys: ['avatar']
         };
     }
 
     handleClick(e) {
         this.setState({
-            selectedKeys: e.key
+            selectedKeys: [e.key]
         })
     }
 

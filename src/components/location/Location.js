@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
 import { Map } from 'react-amap';
+import { config } from '../../config';
 import './location.css'
 
 const Search = Input.Search;
@@ -17,7 +18,6 @@ export class Location extends Component {
     }
 
     render() {
-        const key = '92dd08807095095bf3e11784a5585971';
         return <div className='location'>
             <div className='search'>
                 <Search
@@ -26,7 +26,7 @@ export class Location extends Component {
                     style={{ width: 200 }} />
             </div>
             <div id="container" className='map-container'>
-                <Map events={this.amapEvents} amapkey={key}></Map>
+                <Map events={this.amapEvents} amapkey={config.AMapKey}></Map>
             </div>
         </div>
     }

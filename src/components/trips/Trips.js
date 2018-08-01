@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { startGetTrips, getTripsSucceed, getTripsFailed } from '../../redux/actions/trips';
 import fetch from '../../fetchclient';
 import { Map } from 'react-amap';
+import { history } from '../../history';
 import { Loading } from '../loading/Loading';
+import { config } from '../../config';
 import { ServerError } from '../servererror/ServerError'
 import TripList from '../triplist/TripList';
 import './trips.css';
@@ -18,6 +20,10 @@ export class Trips extends Component {
 
     getTrips() {
         this.props.startGetTrips();
+        if(!this.props.userStatus || !this.props.userStatus.loggedIn) {
+            history.push('');
+            return;
+        }
         fetch.get('trip').then(res => this.handleResponse(res), err => this.handleError())
     }
 
@@ -28,15 +34,15 @@ export class Trips extends Component {
     handleError(err) {
         this.props.getTripsFailed();
     }
+
     render() {
         if (this.props.gettingTrips) {
             return <Loading />
         }
         if (this.props.getTripsSucceed) {
-            const key = '92dd08807095095bf3e11784a5585971';
             return <div className='trips'>
                 <div id="container" className='map-container'>
-                    <Map amapkey={key}></Map>
+                    <Map amapkey={config.AMapKey}></Map>
                 </div>
                 <TripList />
             </div>
@@ -49,6 +55,7 @@ export class Trips extends Component {
 export default connect((state) => ({
     gettingTrips: state.trips.gettingTrips,
     getTripsSucceed: state.trips.getTripsSucceed,
+    userStatus : state.userStatus
 }), dispatch => ({
     startGetTrips: () => dispatch(startGetTrips()),
     getTripsSucceed: (triplist) => dispatch(getTripsSucceed(triplist)),

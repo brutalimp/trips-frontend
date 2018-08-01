@@ -20,6 +20,7 @@ class DropDown extends React.Component {
     }
 
     handleLogOut = () => {
+       localStorage.removeItem('token');
        this.props.logOut();
        history.push('');
     }

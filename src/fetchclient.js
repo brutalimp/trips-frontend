@@ -13,10 +13,7 @@ const fetchClient = () => {
     let instance = axios.create(defaultOptions);
     // Set the AUTH token for any request
     instance.interceptors.request.use(config => {
-        let url = '';
-        serverConfig.https? url +='https://' : url +='http://';
-        url += serverConfig.serverHost + ':' + serverConfig.port+'/';
-        config.baseURL = url;
+        config.baseURL = serverConfig.url;
         const token = localStorage.getItem('token');
         config.headers.Authorization = token ? `Bearer ${token}` : '';
         return config;

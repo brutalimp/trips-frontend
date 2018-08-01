@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
-import { startLogIn } from '../../redux/actions/login';
+import { startLogIn, renewForm } from '../../redux/actions/login';
 import { WrappedHorizontalLoginForm } from '../../components/login/Login';
 
 const mapStateToProps = (state) => ({
-    loggingIn: state.userStatus.loggingIn
+    error: state.userStatus.error
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    startLogIn: (user) => dispatch(startLogIn(user))
+    startLogIn: (user) => dispatch(startLogIn(user)),
+    renewFrom: () => dispatch(renewForm())
 })
 
 
